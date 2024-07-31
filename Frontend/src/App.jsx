@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import VideoCard from './components/VideoCard';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import VideoPlayerLayout from './components/VideoPlayer';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -31,26 +33,37 @@ function App() {
   ];
 
   return (
-    <div className="App">
-      <Navbar isLoggedIn={isLoggedIn} />
-      <main className="container mx-auto p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {videos.map((video, index) => (
-            <VideoCard 
-              key={index}
-              thumbnail={video.thumbnail}
-              title={video.title}
-              channel={video.channel}
-              views={video.views}
-              duration={video.duration}
+    <Router>
+      <div className="App">
+        <Navbar isLoggedIn={isLoggedIn} />
+        <main className="container mx-auto p-4">
+          <Routes>
+            <Route 
+              path="/" 
+              element={
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {videos.map((video) => (
+                    <VideoCard 
+                      key={video.id}
+                      id={video.id}
+                      thumbnail={video.thumbnail}
+                      title={video.title}
+                      channel={video.channel}
+                      views={video.views}
+                      duration={video.duration}
+                    />
+                  ))}
+                </div>
+              } 
             />
-          ))}
-        </div>
-        <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
-          {isLoggedIn ? 'Log Out' : 'Log In'}
-        </button>
-      </main>
-    </div>
+            <Route path="/video" element={<VideoPlayerLayout videos={videos} />} />
+          </Routes>
+          {/* <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+            {isLoggedIn ? 'Log Out' : 'Log In'}
+          </button> */}
+        </main>
+      </div>
+    </Router>
   );
 }
 
