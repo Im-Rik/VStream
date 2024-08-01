@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const cors = require('cors')
 
 const homeRoute = require('./routes/home')
 const userRoute = require('./routes/users');
@@ -15,6 +15,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/vstream')
 .catch((e)=>{console.log(e)});
 
 //Middlewares
+app.use(cors());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
