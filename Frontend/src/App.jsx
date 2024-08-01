@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import VideoCard from './components/VideoCard';
+import SignUpForm from './components/SignUpForm';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import VideoPlayerLayout from './components/VideoPlayer';
 
@@ -38,9 +39,7 @@ function App() {
         <Navbar isLoggedIn={isLoggedIn} />
         <main className="container mx-auto p-4">
           <Routes>
-            <Route 
-              path="/" 
-              element={
+            <Route path="/" element={
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {videos.map((video) => (
                     <VideoCard 
@@ -57,10 +56,8 @@ function App() {
               } 
             />
             <Route path="/video" element={<VideoPlayerLayout videos={videos} />} />
+            <Route path= "/signup" element={<SignUpForm/>}/>
           </Routes>
-          {/* <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
-            {isLoggedIn ? 'Log Out' : 'Log In'}
-          </button> */}
         </main>
       </div>
     </Router>
