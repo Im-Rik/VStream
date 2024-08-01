@@ -1,11 +1,28 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
+
+const homeRoute = require('./routes/home')
+const userRoute = require('./routes/users');
+
 
 const app = express();
 const PORT = 4500;
 
-app.get('/', (req, res) => {
-    res.send("OK");
-});
+//connections
+mongoose.connect('mongodb://127.0.0.1:27017/vstream')
+.then(()=>{console.log("MongoDB connected")})
+.catch((e)=>{console.log(e)});
+
+//Middlewares
+app.use(express.static('public'));
+app.use(express.urlencoded({extended: false}));
+
+
+
+//Routes
+app.use('/', homeRoute);
+app.use('/user', userRoute); 
 
 
 app.listen(PORT, ()=> console.log(`Listening from http://127.0.0.1:${PORT}`));
