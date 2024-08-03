@@ -13,13 +13,13 @@ const SignUpForm = () => {
     setError(""); // Clear any previous errors
     axios.post('http://localhost:4500/user/signup', { name, email, password })
         .then(result => {
-            console.log(result);
+            // console.log(result);
             if (result.status === 201) {
-                window.location.href = '/';
+                window.location.href = '/login';
             }
         })
         .catch(e => {
-            console.log(e);
+            // console.log(e);
             if (e.response && e.response.data && e.response.data.error) {
                 setError(e.response.data.error);
             } else {

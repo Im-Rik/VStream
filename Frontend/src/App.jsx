@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import VideoCard from './components/VideoCard';
 import SignUpForm from './components/SignUpForm';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LogInForm from './components/LoginForm'
 import VideoPlayerLayout from './components/VideoPlayer';
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
             />
             <Route path="/video" element={<VideoPlayerLayout videos={videos} />} />
             <Route path= "/signup" element={<SignUpForm/>}/>
+            <Route path= "/login" element={<LogInForm/>}/>
           </Routes>
         </main>
       </div>
