@@ -21,8 +21,16 @@ const handleUserSignUp = async (req, res) => {
 };
 
 
-const handleUserSignIn = (req, res) => {
-    res.send("ok")
+const handleUserSignIn = async (req, res) => {
+   const {email, password} =  req.body;
+
+    try{
+        const token = await User.matchPasswordAndGenerateToken({email, password});
+        return res.cookie("token", token);
+    }catch(e){
+        return res.status(400).json({error: e.message})
+    }
+   
 }
 
 module.exports = {
