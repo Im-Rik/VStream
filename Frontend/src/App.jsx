@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import axios from 'axios'
 import Navbar from './components/Navbar';
 import VideoCard from './components/VideoCard';
 import SignUpForm from './components/SignUpForm';
 import LogInForm from './components/LoginForm'
 import VideoPlayerLayout from './components/VideoPlayer';
+
+axios.defaults.withCredentials = true;
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);

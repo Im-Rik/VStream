@@ -8,17 +8,26 @@ const LogInForm = () => {
     const [error, setError] = useState("");
 
     const submit = async (e) => {
-        e.preventDefault();
-        setError("");
-        axios.post('',{email, password})
-            .then((result)=>{
-                if(result.status==201) window.location.href("/")
-            })
-            .catch((e)=>{
-                if(e.response && e.response.data && e.response.data.error) setError(e.response.data.error);
-                else setError("An Error Occured, Please Try Again")
-            })
-    }
+      e.preventDefault();
+      setError(""); // Clear any previous errors
+      console.log('Starting request...');
+      
+      try {
+          const result = await axios.post('http://localhost:4500/user/login', { email, password });
+          console.log('Received response:', result);
+          if (result.status === 201) {
+              // console.log(result.data.message);
+              window.location.href = "/";
+          }
+      } catch (e) {
+          console.log('Error occurred:', e);
+          if (e.response && e.response.data && e.response.data.error) {
+              setError(e.response.data.error);
+          } else {
+              setError("An error occurred. Please try again.");
+          }
+      }
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -46,7 +55,7 @@ const LogInForm = () => {
               required
             />
           </div>
-          <button className="w-full py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-700 transition duration-300"> Sign Up </button>
+          <button className="w-full py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-700 transition duration-300"> Log in </button>
         </form>
       </div>
     </div>

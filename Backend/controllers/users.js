@@ -26,7 +26,10 @@ const handleUserSignIn = async (req, res) => {
 
     try{
         const token = await User.matchPasswordAndGenerateToken({email, password});
-        return res.cookie("token", token);
+        // console.log(token);
+        // return res.status(201).cookie("token", token);
+        res.cookie("token", token);
+        return res.status(201).json({ message: token });
     }catch(e){
         return res.status(400).json({error: e.message})
     }

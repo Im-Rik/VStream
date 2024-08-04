@@ -7,7 +7,7 @@ router
 .post(handleUserSignUp) 
 
 router
-.route('/signin')
+.route('/login')
 .post(handleUserSignIn) 
 
 module.exports = router; 

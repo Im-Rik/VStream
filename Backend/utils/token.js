@@ -1,4 +1,4 @@
-const jwt = requrire('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const secret = '$@%@'
 
