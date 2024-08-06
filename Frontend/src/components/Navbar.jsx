@@ -1,11 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 const Navbar = ({ isLoggedIn }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      const token = Cookies.get('token');
+      // console.log(token);
+      if (token) {
+        try {
+          const response = await axios.post('http://localhost:4500/user/verify-token', { token } , {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          if (response.data.valid) {
+            setUser(response.data.decoded);
+          } else {
+            console.error('Invalid token');
+            Cookies.remove('token');
+          }
+        } catch (error) {
+          console.error('Error verifying token', error);
+          // Cookies.remove('token');
+        }
+      }
+    };
+
+    verifyToken();
+  }, []);
 
   return (
     <nav className="bg-gray-800 p-4">
@@ -21,7 +51,7 @@ const Navbar = ({ isLoggedIn }) => {
                   onClick={toggleDropdown} 
                   className="text-gray-300 hover:text-white"
                 >
-                  User Name
+                  {user ? user.name : 'User'}
                 </button>
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
@@ -45,6 +75,6 @@ const Navbar = ({ isLoggedIn }) => {
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

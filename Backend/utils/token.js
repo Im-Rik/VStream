@@ -16,7 +16,7 @@ const createTokenForUser = (user) => {
     return token;
 }
 
-const validateToken = () =>{
+const validateToken = (token) =>{
     const payload = jwt.verify(token, secret);
     return payload;
 }

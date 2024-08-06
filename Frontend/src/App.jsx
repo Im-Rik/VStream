@@ -6,6 +6,7 @@ import VideoCard from './components/VideoCard';
 import SignUpForm from './components/SignUpForm';
 import LogInForm from './components/LoginForm'
 import VideoPlayerLayout from './components/VideoPlayer';
+// import TestComponent from './components/Test';
 
 axios.defaults.withCredentials = true;
 
@@ -66,6 +67,7 @@ function App() {
         </main>
       </div>
     </Router>
+    // <div> <TestComponent /> </div>
   );
 }
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {handleUserSignUp, handleUserSignIn} = require('../controllers/users')
+const {handleUserSignUp, handleUserSignIn, handleVerifyUserToken} = require('../controllers/users')
 
 router
 .route('/signup')
@@ -9,5 +9,9 @@ router
 router
 .route('/login')
 .post(handleUserSignIn) 
+
+router
+.route('/verify-token')
+.post(handleVerifyUserToken)
 
 module.exports = router; 
