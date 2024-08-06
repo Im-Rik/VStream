@@ -29,7 +29,7 @@ const handleUserSignIn = async (req, res) => {
         const token = await User.matchPasswordAndGenerateToken({email, password});
         // console.log(token);
         // return res.status(201).cookie("token", token);
-        res.cookie("token", token, { expires: 7 }); // 7 days
+        res.cookie("token", token, { maxAge: 60 * 60 * 24 * 7 }); // 7 days
         return res.status(201).json({ message: token });
     }catch(e){
         return res.status(400).json({error: e.message})
