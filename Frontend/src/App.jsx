@@ -6,6 +6,7 @@ import VideoCard from './components/VideoCard';
 import SignUpForm from './components/SignUpForm';
 import LogInForm from './components/LoginForm'
 import VideoPlayerLayout from './components/VideoPlayer';
+import VideoUploadForm from './components/VideoUploadForm';
 // import TestComponent from './components/Test';
 
 axios.defaults.withCredentials = true;
@@ -63,6 +64,7 @@ function App() {
             <Route path="/video" element={<VideoPlayerLayout videos={videos} />} />
             <Route path= "/signup" element={<SignUpForm/>}/>
             <Route path= "/login" element={<LogInForm/>}/>
+            <Route path= "/upload" element={<VideoUploadForm/>}/>
           </Routes>
         </main>
       </div>
