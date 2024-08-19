@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-const {createTokenForUser} = require('../utils/token') 
+const {createTokenForUser} = require('../services/tokenService') 
 
 const userSchema = new mongoose.Schema({
     name:{

@@ -2,9 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors')
 
-const homeRoute = require('./routes/home')
+const homeRoute = require('./routes/home');
 const userRoute = require('./routes/users');
-const checkForAuthenticationCookie = require('./middlewares/authentication')
+const videoRoute = require('./routes/videos');
+const { watchFiles } = require('./services/fileWatcherService');
+const checkForAuthenticationCookie = require('./middlewares/authentication');
 
 
 const app = express();
@@ -28,11 +30,13 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(checkForAuthenticationCookie("token"));
 
+// Start watching files
+watchFiles();
 
 //Routes
 app.use('/', homeRoute);
 app.use('/user', userRoute); 
-app.use('/videos', videoRoute);
+app.use('/api', videoRoute);
 
 
 app.listen(PORT, ()=> console.log(`Listening from http://127.0.0.1:${PORT}`));
