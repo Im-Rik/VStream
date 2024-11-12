@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors')
+const cookieParser = require('cookie-parser');
 
 const homeRoute = require('./routes/home');
 const userRoute = require('./routes/users');
@@ -28,14 +29,15 @@ app.use(cors(corsOptions));
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(cookieParser());
 app.use(checkForAuthenticationCookie("token"));
 
 // Start watching files
 watchFiles();
 
 //Routes
-app.use('/', homeRoute);
-app.use('/user', userRoute); 
+app.use('/', homeRoute); 
+app.use('/user', userRoute);  
 app.use('/api', videoRoute);
 
 
