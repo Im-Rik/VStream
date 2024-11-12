@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors')
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 const homeRoute = require('./routes/home');
 const userRoute = require('./routes/users');
@@ -26,7 +27,7 @@ const corsOptions = {
 
 //Middlewares
 app.use(cors(corsOptions));
-app.use(express.static('public'));
+app.use(express.static(path.resolve('./public')));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());

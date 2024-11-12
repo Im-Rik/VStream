@@ -34,8 +34,8 @@ const processVideo = async (filePath) => {
     });
 
     // Construct URLs based on the output paths
-    const videoLocationUrl = `/public/videos/${fileName}/${fileName}.m3u8`; 
-    const thumbnailUrl = `/public/videos/${fileName}/thumbnail.jpg`;
+    const videoLocationUrl = `/videos/${fileName}/${fileName}.m3u8`; 
+    const thumbnailUrl = `/videos/${fileName}/thumbnail.jpg`;
 
     await fs.unlink(filePath);
     console.log(`Deleted file ${filePath}`);

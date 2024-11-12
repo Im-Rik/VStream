@@ -3,7 +3,7 @@ const router = express.Router();
 const { handleLoadingHomePage } = require('../controllers/home');
 
 router
-  .route('/')
+  .route('/home')
   .get(handleLoadingHomePage);
 
 
