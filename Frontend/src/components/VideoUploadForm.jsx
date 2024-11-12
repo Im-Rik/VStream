@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 const VideoUploadForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [videoFile, setVideoFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
+  const [error, setError] = useState("");
+
+  const { user } = useContext(AuthContext);
 
   const handleFileChange = (e) => {
     setVideoFile(e.target.files[0]);
@@ -14,7 +19,7 @@ const VideoUploadForm = () => {
     e.preventDefault();
     e.stopPropagation();
     if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
+      setDragActive(true); 
     } else if (e.type === "dragleave") {
       setDragActive(false);
     }
@@ -31,13 +36,45 @@ const VideoUploadForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form submission logic here
+    setError("");
+
+    // Create a FormData object to send multipart/form-data
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('video', videoFile);
+
+    formData.append('userId', user._id);  
+    formData.append('username', user.name); 
+
+
+    axios.post('http://127.0.0.1:4500/api/upload', formData, {
+      withCredentials: true,  // Include credentials with the request
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then(result => {
+        console.log(result);
+        if (result.status === 201) {
+            window.location.href = '/';
+        }
+    })
+    .catch(e => {
+        // console.log(e);
+        if (e.response && e.response.data && e.response.data.error) {
+            setError(e.response.data.error);
+        } else {
+            setError("An error occurred. Please try again.");
+        }
+    });
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Upload Video</h2>
+        {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-700">Title</label>

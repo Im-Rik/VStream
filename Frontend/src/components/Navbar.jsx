@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import {AuthContext} from '../context/AuthContext'
 
 const Navbar = ({ isLoggedIn }) => {
+
+  const authContext = useContext(AuthContext);
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null); //Using Context instead
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -12,7 +16,7 @@ const Navbar = ({ isLoggedIn }) => {
 
   const Logout = () => {
     Cookies.remove('token');
-    setUser(null);
+    authContext.setUser(null);
   }
 
   useEffect(() => {
@@ -27,7 +31,7 @@ const Navbar = ({ isLoggedIn }) => {
             }
           });
           if (response.data.valid) {
-            setUser(response.data.decoded);
+            authContext.setUser(response.data.decoded);
           } else {
             console.error('Invalid token');
             Cookies.remove('token');
@@ -48,15 +52,15 @@ const Navbar = ({ isLoggedIn }) => {
         <div className="text-white text-xl font-bold">Vstream</div>
         <div className="flex space-x-4">
           <a href="/" className="text-gray-300 hover:text-white">Home</a>
-          {user ? (
+          {authContext.user ? (
             <>
-              <a href="/add-files" className="text-gray-300 hover:text-white">Add Files</a>
+              <a href="/upload" className="text-gray-300 hover:text-white">Add Files</a>
               <div className="relative">
                 <button 
                   onClick={toggleDropdown} 
                   className="text-gray-300 hover:text-white"
                 >
-                  {user.name }
+                  {authContext.user.name }
                 </button>
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-10">

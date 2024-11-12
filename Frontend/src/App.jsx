@@ -7,6 +7,8 @@ import SignUpForm from './components/SignUpForm';
 import LogInForm from './components/LoginForm'
 import VideoPlayerLayout from './components/VideoPlayer';
 import VideoUploadForm from './components/VideoUploadForm';
+import { AuthProvider } from './context/AuthContext.jsx';
+
 // import TestComponent from './components/Test';
 
 axios.defaults.withCredentials = true;
