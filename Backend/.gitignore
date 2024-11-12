@@ -2,7 +2,7 @@
 node_modules
 
 # Ignore the entire bucket folder
-bucket/
+bucket/*
 
 # Ignore all files in public/image except default.png
 public/image/*

@@ -78,7 +78,7 @@ function App() {
                 </div>
               } 
             />
-            <Route path="/video" element={<VideoPlayerLayout videos={videos} />} />
+            <Route path="/video/:videoId" element={<VideoPlayerLayout videos={videos} />} />
             <Route path= "/signup" element={<SignUpForm/>}/>
             <Route path= "/login" element={<LogInForm/>}/>
             <Route path= "/upload" element={<VideoUploadForm/>}/>
