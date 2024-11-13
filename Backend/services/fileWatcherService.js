@@ -20,7 +20,7 @@ const waitForCompleteUpload = (filePath, callback) => {
         lastSize = stats.size;
       }
     } catch (err) {
-      console.error(`Error checking file size: ${err.message}`);
+      //console.error(`Error checking file size: ${err.message}`);
       clearInterval(checkInterval);
     }
   }, 2000);
@@ -30,7 +30,7 @@ const watchFiles = () => {
   const watcher = chokidar.watch('bucket', { persistent: true });
 
   watcher.on('add', (filePath) => {
-    console.log(`File ${filePath} has been added`);
+    //console.log(`File ${filePath} has been added`);
     waitForCompleteUpload(filePath, (completeFilePath) => {
       videoQueue.push(completeFilePath);
     });

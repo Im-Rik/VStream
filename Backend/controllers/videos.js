@@ -49,10 +49,10 @@ const handleVideoFileUpload = async (req, res) => {
 
 const handleVideoFetch = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  //console.log(id);
   try {
     const video = await Video.findById(id).populate('owner', 'name');
-    console.log(video);
+    //console.log(video);
     res.json(video); 
   } catch (error) {
     res.status(500).json({ error: 'Error fetching video' });
