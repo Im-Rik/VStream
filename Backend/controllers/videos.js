@@ -51,9 +51,15 @@ const handleVideoFetch = async (req, res) => {
   const { id } = req.params;
   //console.log(id);
   try {
-    const video = await Video.findById(id).populate('owner', 'name');
+    const video = await Video.findByIdAndUpdate(
+      id,
+      { $inc: { views: 1 } }, // $inc: increment by 
+      { new: true } //Return the updated document after the increment
+    ).populate('owner', 'name');
+
     //console.log(video);
     res.json(video); 
+
   } catch (error) {
     res.status(500).json({ error: 'Error fetching video' });
   }
